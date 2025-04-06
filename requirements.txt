@@ -4,3 +4,4 @@ channels==4.2.0
 gunicorn==21.2.0
 redis==5.2.1
 psycopg2-binary
+django-cors-headers

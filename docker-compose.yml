@@ -1,7 +1,7 @@
 version: '3'
 
 services:
-  web:
+  backend:
     build: .
     ports:
       - "8000:8000"
@@ -9,7 +9,22 @@ services:
       - DEBUG=False
     depends_on:
       - db
-
+    volumes:
+      - .:/app
+    command: python manage.py runserver 0.0.0.0:8000
+    
+  frontend:
+    build: ./frontend
+    ports:
+      - "5173:5173"
+    command: npm run dev -- --host 0.0.0.0
+    volumes:
+      - ./frontend:/app
+      - /app/node_modules
+    environment:
+      - VITE_API_URL=http://localhost:8000/api
+    stdin_open: true  # Necesario para algunos apps de React
+    tty: true        # Mantiene el contenedor activo
   db:
     image: postgres:14
     restart: always
