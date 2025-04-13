@@ -25,7 +25,7 @@ SECRET_KEY = "django-insecure-e^s)20m*y-c$m5+v#+mujkq3f_fwogot+h9+1ri#oe)+-ul^c7
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = True
 
-ALLOWED_HOSTS = ["*"]
+ALLOWED_HOSTS = ["18.209.18.60", "localhost","backend"]
 
 
 # Application definition
@@ -39,6 +39,7 @@ INSTALLED_APPS = [
     "django.contrib.staticfiles",
     "api",
     "rest_framework",
+    "corsheaders",
 ]
 
 MIDDLEWARE = [
@@ -55,7 +56,7 @@ MIDDLEWARE = [
 # Permite solicitudes desde tu frontend de React
 CORS_ALLOWED_ORIGINS = [
     "http://localhost:5173",  # Si estás usando el servidor de desarrollo de React
-    # Agrega aquí otros orígenes si es necesario
+    "http://18.209.18.60", #IP publica de lightsail
 ]
 
 ROOT_URLCONF = "boosting_site_backend.urls"

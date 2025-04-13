@@ -11,18 +11,18 @@ services:
       - db
     volumes:
       - .:/app
-    command: python manage.py runserver 0.0.0.0:8000
+    command: gunicorn --bind 0.0.0.0:8000 boosting_site_backend.wsgi:application
     
   frontend:
     build: ./frontend
     ports:
       - "5173:5173"
-    command: npm run dev -- --host 0.0.0.0
+    command: npm run build && npm run preview -- --host 0.0.0.0
     volumes:
       - ./frontend:/app
       - /app/node_modules
     environment:
-      - VITE_API_URL=http://localhost:8000/api
+      - VITE_API_URL=http://backend:8000/api
     stdin_open: true  # Necesario para algunos apps de React
     tty: true        # Mantiene el contenedor activo
   db:
